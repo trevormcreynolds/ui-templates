@@ -1,0 +1,11 @@
+# Existing Resources
+- [Meraki UI | Components](https://merakiui.com/components).
+- [Meraki UI | Templates](https://merakiui.com/templates).
+- [TailwindTemplates](https://tailwindtemplates.io/templates).
+- [TailBlocks](https://tailblocks.cc/).
+- [DaisyUI](https://daisyui.com/).
+- [WickedBlocks](https://wickedblocks.dev/).
+- [Tailwind-Kit](https://www.tailwind-kit.com/components).
+- [Kutty](https://kutty.netlify.app/components/).
+- [Hyper UI](https://www.hyperui.dev/).
+- [Preline](https://preline.co/).
