@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+    
+    .container {
+      height: 100vh;
+      display: grid;
+      grid-template-columns: 200px 2.2fr 1fr;
+      grid-template-rows: 60px 3.8fr 50px;
+      gap: 0px 0px;
+      grid-auto-flow: row;
+      grid-template-areas:
+        "Header Header Header"
+        "Sidenav Main Main"
+        "Footer Footer Footer";
+    }
+
+    .Header {
+      grid-area: Header;
+      background-color: lightgray;
+    }
+
+    .Footer {
+      grid-area: Footer;
+      background-color: lightgray;
+    }
+
+    .Sidenav {
+      grid-area: Sidenav;
+      background-color: lightblue;
+    }
+
+    .Main {
+      grid-area: Main;
+      background-color: white;
+    }
+
+  </style>
+  <div class="container">
+    <div class="Header">
+      <p>Header</p>
+    </div>
+    <div class="Footer">
+      <p>Footer</p>
+
+    </div>
+    <div class="Sidenav">
+      <p>Sidenav</p>
+
+    </div>
+    <div class="Main">
+      <p>Main</p>
+    </div>
+  </div>
+</body>
+</html>

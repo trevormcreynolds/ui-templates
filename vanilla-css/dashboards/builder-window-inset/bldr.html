@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <title>Document</title>
+</head>
+<body>
+  <style>
+    :root {
+      --primary-color: #5046E6;
+      --header-height: 50px;
+      --border-color: #E5E7EB;
+      --background-color: #F3F4F6;
+      --sidenav-background: #221E24;
+      --sidenav-text: #DBD7DF;
+      --sidenav-section-title-color: #79747B;
+      --sidenav-link-active-background: rgba(81, 70, 230, 0.25);
+      --sidenav-link-active-color: #605ED2;
+      --sidenav-dark-border-color: #2e2a30;
+    }
+
+    * {
+      padding: 0px;
+      margin: 0px;
+    }
+
+    html {
+      color: #2a2a2a;
+      background-color: #fff;
+    }
+
+    html, body, div, button {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+      font-style: normal;
+    }
+    
+    .main {
+      height: 100vh;
+      display: grid; 
+      grid-auto-columns: 1fr; 
+      grid-template-columns: 180px 1.2fr; 
+      grid-template-rows: 50px 2.3fr; 
+      gap: 0px 0px; 
+      grid-template-areas:
+        "Sidenav Header"
+        "Sidenav Content";
+    }
+
+    .sidenav {
+      grid-area: Sidenav;
+      background-color: var(--sidenav-background);
+      color: var(--sidenav-text);
+    }
+
+    .header {
+      grid-area: Header;
+      background-color: var(--layout-nav-color);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 50px;
+      padding: 0px 10px;
+    }
+
+    .header-right {
+      display: flex;
+    }
+
+    .page-content {
+      grid-area: Content;
+      background-color: white;
+      overflow: hidden;
+    }
+
+    .pb-container { 
+      height: 100%;
+      display: grid;
+      grid-template-columns: 200px 2fr;
+      grid-template-rows: 50px auto;
+      gap: 0;
+      grid-template-areas:
+        "Sidebar-Header Content-Header"
+        "Sidebar Content";
+    }
+
+    .pb-sidebar {
+      grid-area: Sidebar;
+      overflow-y: auto;
+      border-right: 1px solid var(--border-color);
+    }
+
+    /* Collapsible Sidebar */
+    .pb-sidebar.collapsed {
+      max-width: 0;
+      overflow: hidden;
+      transition: max-width 0.3s ease-in-out;
+    }
+
+    .pb-container.collapsed {
+      grid-template-columns: 0 1fr;
+    }
+
+    .pb-sidebar-header {
+      grid-area: Sidebar-Header;
+      padding: 10px;
+      border-right: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+
+    .pb-render-header {
+      grid-area: Content-Header;
+      background-color: #fff;
+      padding: 10px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1;
+    }
+
+    .pb-render-header > div {
+      width: 33.33%
+    }
+
+    .pb-render-header-left {
+      justify-content: left;
+    }
+
+    .pb-render-header-center {
+      justify-content: center;
+    }
+
+    .pb-render-header-right {
+      justify-content: right;
+    }
+
+    .pb-render-content {
+      grid-area: Content;
+      background-color: var(--background-color);
+      overflow-y: auto; /* Allow scrolling if content overflows */
+      display: flex;
+    }
+
+    .pb-iframe-render {
+      background-color: #fff;
+      width: 100%;
+      height: 100%;
+      margin: auto;
+      border: none;
+        border-right-width: medium;
+        border-right-style: none;
+        border-right-color: currentcolor;
+        border-left-width: medium;
+        border-left-style: none;
+        border-left-color: currentcolor;
+      border-right: 1px solid var(--border-color);;
+      border-left: 1px solid var(--border-color);;
+      overflow-y: auto;
+      overflow-x: auto;
+    }
+
+    .component {
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid var(--border-color);
+    }
+
+    .component-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 10px;
+      overflow-y: auto; /* Enable vertical scrolling */
+      flex-grow: 1; /* Allow it to take up available space */
+    }
+
+    /* Sidenav Flexbox */
+    .sidenav {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .sidenav-logo {
+      min-height: 50px;
+      display: flex;
+      align-items: center;
+    }
+
+    .sidenav-content {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+
+    .sidenav-link-container {
+      flex-grow: 1;
+    }
+
+    .sidenav-links {
+      list-style-type: none;
+    }
+
+    .sidenav-link {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+    }
+
+    .sidenav-link.active {
+      background-color: var(--sidenav-link-active-background);
+    }
+
+    .sidenav-link > a {
+      color: var(--sidenav-text);
+      text-decoration: none;
+    }
+
+    .sidenav-link.active > a {
+      color: var(--sidenav-link-active-color);
+    }
+
+    .sidenav-section-title {
+      font-size: 11px;
+      padding: 10px;
+      border-top: 1px solid var(--sidenav-dark-border-color);
+      color: var(--sidenav-section-title-color);
+    }
+
+    .sidenav-footer {
+      height: 50px;
+      margin-top: auto;
+    }
+
+    .pb-render-header > div {
+      display: flex;
+      align-items: center;
+    }
+
+    /* Other Styles */
+    .pb-btn {
+      border-radius: 3px;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 2px 0px;
+      display: flex;
+    }
+
+    .pb-text-btn {
+      padding: 6px 12px;
+      margin-right: 5px;
+      font-weight: 600;
+    }
+
+    .pb-img-btn {
+      border: none;
+      margin: 10px;
+      box-shadow: none;
+      background-color: inherit;
+    }
+
+    .pb-btn.primary {
+      background-color: #5046E6;
+      border: none;
+      color: white;
+    }
+
+    .pb-btn.secondary {
+      background-color: white;
+      border: 1px solid #D1D5DC;
+    }
+
+    #iFrameWindowSize {
+      position: absolute;
+      top: 120px;
+      right: 20px;
+      z-index: 10;
+      color: darkgray;
+      opacity: 50%;
+    }
+
+    .tooltip {
+      position: relative;
+      /* display: inline-block; */
+    }
+
+    /* Tooltip text */
+    .tooltip .tooltiptext {
+      width: 80px;
+      opacity: 0;
+      visibility: hidden;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      background-color: rgba(0, 0, 0, 0.33);
+      transition-property: opacity;
+      transition-duration: 200ms;
+      transition-delay: 500ms;
+      bottom: -150%;
+      left: 50%;
+      margin-left: -40px;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+  </style>
+  <div class="main">
+    <div class="header">
+      <div class="header-left">
+      </div>
+      <div class="header-right">
+        <button class="pb-btn pb-text-btn secondary" id="">Log Out</button>
+        <!-- <button class="pb-btn pb-text-btn primary" id="">Log In</button> -->
+      </div>
+    </div>
+    <div class="sidenav">
+      <div class="sidenav-logo">
+        <img src="" alt="Web Toolkit">
+      </div>
+      <div class="sidenav-content">
+        <div class="sidenav-link-container">
+          <div class="sidenav-section-title">
+            <span>MAIN</span>
+          </div>
+          <ul class="sidenav-links">
+            <li class="sidenav-link">
+              <a href="">Home</a>
+            </li>
+            <li class="sidenav-link active">
+              <a href="">Builder</a>
+            </li>
+            <li class="sidenav-link">
+              <a href="">Audit</a>
+            </li>
+            <li class="sidenav-link">
+              <a href="">Admin</a>
+            </li>
+          </ul>
+          <div class="sidenav-section-title">
+            <span>PINNED</span>
+          </div>
+          <ul class="sidenav-links">
+            <li class="sidenav-link">
+              <a href="">Home</a>
+            </li>
+            <li class="sidenav-link">
+              <a href="">Builder</a>
+            </li>
+            <li class="sidenav-link">
+              <a href="">Audit</a>
+            </li>
+            <li class="sidenav-link">
+              <a href="">Admin</a>
+            </li>
+          </ul>
+        </div>
+        <div class="sidenav-footer">
+          <small>Web Toolkit v0.1</small>
+        </div>
+      </div>
+    </div>
+    <div class="page-content">
+      <div class="pb-container">
+        <div class="pb-sidebar-header">
+          <span>Components</span>
+        </div>
+        <div class="pb-sidebar">
+          <div class="component-list">
+            <div class="component">Component 1</div>
+            <div class="component">Component 2</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 3</div>
+            <div class="component">Component 4</div>
+            <div class="component">Component 5</div>
+          </div>
+        </div>
+
+        <div class="pb-render-header">
+          <div class="pb-render-header-left">
+            <button class="pb-btn pb-img-btn" id="toggle-sidebar">
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M17.2803 11.5303C17.5732 11.2374 17.5732 10.7626 17.2803 10.4697C16.9874 10.1768 16.5126 10.1768 16.2197 10.4697L13.2197 13.4697C12.9268 13.7626 12.9268 14.2374 13.2197 14.5303L16.2197 17.5303C16.5126 17.8232 16.9874 17.8232 17.2803 17.5303C17.5732 17.2374 17.5732 16.7626 17.2803 16.4697L15.5607 14.75H21.25C21.6642 14.75 22 14.4142 22 14C22 13.5858 21.6642 13.25 21.25 13.25H15.5607L17.2803 11.5303ZM26.0005 7.75C26.0005 5.67893 24.3216 4 22.2505 4H5.75391C3.68284 4 2.00391 5.67893 2.00391 7.75V20.2501C2.00391 22.3211 3.68284 24.0001 5.75391 24.0001H22.2505C24.3216 24.0001 26.0005 22.3211 26.0005 20.2501V7.75ZM22.2505 5.5C23.4932 5.5 24.5005 6.50736 24.5005 7.75V20.2501C24.5005 21.4927 23.4932 22.5001 22.2505 22.5001H11.0047V5.5H22.2505ZM9.50467 5.5V22.5001H5.75391C4.51127 22.5001 3.50391 21.4927 3.50391 20.2501V7.75C3.50391 6.50736 4.51127 5.5 5.75391 5.5H9.50467Z" fill="#9CA3AF"/>
+              </svg>           
+            </button>
+          </div>
+          <div class="pb-render-header-center">
+            <button class="pb-btn pb-img-btn tooltip" id="toggle-mobile">
+              <img src="svg/mobile.svg">
+              <span class="tooltiptext">Mobile</span>
+            </button>
+            <button class="pb-btn pb-img-btn tooltip" id="toggle-tablet">
+              <img src="svg/tablet.svg">
+              <span class="tooltiptext">Tablet</span>
+            </button>
+            <button class="pb-btn pb-img-btn tooltip" id="toggle-desktop">
+              <img src="svg/desktop.svg">
+              <span class="tooltiptext">Desktop</span>
+            </button>
+            <button class="pb-btn pb-img-btn tooltip" id="toggle-full-width">
+              <img src="svg/full-width.svg">
+              <span class="tooltiptext">Viewport</span>
+            </button>
+            <!-- <span id="iFrameWindowSize">1920x1080</span> -->
+            <span id="iFrameWindowSize">1920x1080</span>
+
+          </div>
+          <div class="pb-render-header-right">
+            <button id="openModal" class="pb-btn pb-text-btn secondary">Reset</button>
+            <button id="viewAllCodeBtn" class="pb-btn pb-text-btn secondary">View Code</button>
+            <button id="viewAllCodeBtn" class="pb-btn pb-text-btn primary">Export</button>
+          </div>
+        </div>
+        <!-- <span id="">1920x1080</span> -->
+        <div class="pb-render-content">
+          <iframe class="pb-iframe-render"></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const iframe = document.querySelector('.pb-iframe-render');
+
+      document.getElementById('toggle-mobile').addEventListener('click', function() {
+          iframe.style.width = '380px'; // Max width for extra small devices
+      });
+
+      document.getElementById('toggle-tablet').addEventListener('click', function() {
+          iframe.style.width = '992px'; // Min width for small devices
+      });
+
+      document.getElementById('toggle-desktop').addEventListener('click', function() {
+          iframe.style.width = '1200px'; // Min width for medium devices
+      });
+
+      document.getElementById('toggle-full-width').addEventListener('click', function() {
+          iframe.style.width = '100%'; // Min width for medium devices
+      });
+    });
+  </script>
+
+  <script>
+    // Sidebar
+    document.getElementById('toggle-sidebar').addEventListener('click', function() {
+      const sidebar = document.querySelector('.pb-sidebar');
+      const container = document.querySelector('.pb-container');
+      const button = this;
+
+      // Check if sidebar is currently visible
+      if (sidebar.classList.contains('collapsed')) {
+        sidebar.classList.remove('collapsed');
+        container.classList.remove('collapsed');
+        button.img.src = 'close-panel.svg';
+      } else {
+        sidebar.classList.add('collapsed');
+        container.classList.add('collapsed');
+        button.img.src = 'open-panel.svg';
+      }
+    });
+  </script>
+</body>
+</html>
+
+
