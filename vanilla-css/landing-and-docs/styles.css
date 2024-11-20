@@ -1,0 +1,308 @@
+/* ======================= */
+/*       Global Styles     */
+/* ======================= */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body, h1, p, ul, li, a, button {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ======================= */
+/*        Navbar Styles    */
+/* ======================= */
+header {
+  flex: 0 0 auto;
+  position: sticky; /* Makes the navbar stick to the top */
+  top: 0;
+}
+
+.navbar {
+  background-color: rgba(51, 51, 51, 0.8); /* Semi-transparent background */
+  -webkit-backdrop-filter: blur(10px); /* For Safari support */
+  backdrop-filter: blur(10px); /* Applies blur effect */
+  color: #fff;
+  z-index: 1000; /* Ensures navbar stays above other content */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Adds a subtle shadow */
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 20px;
+  height: 60px; /* Fixed height for consistent spacing */
+}
+
+.navbar-left, .navbar-center, .navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+}
+
+.nav-links li {
+  margin: 0 15px;
+}
+
+.nav-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.login {
+  color: #fff;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+/* ======================= */
+/*    Hamburger Menu Styles */
+/* ======================= */
+.hamburger-menu {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.hamburger-menu span {
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  margin: 4px 0;
+  transition: all 0.3s ease;
+}
+
+/* ======================= */
+/*      Overlay Styles     */
+/* ======================= */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 10;
+}
+
+.overlay.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ======================= */
+/*       Drawer Styles     */
+/* ======================= */
+.drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background-color: #fff;
+  z-index: 11;
+  padding: 20px;
+  overflow-y: auto;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+}
+
+.drawer.open {
+  transform: translateX(0);
+}
+
+.drawer-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-drawer {
+  font-size: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+/* Drawer Links */
+.drawer-links {
+  list-style: none;
+  margin-top: 20px;
+}
+
+.drawer-links li {
+  margin-bottom: 15px;
+}
+
+.drawer-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 18px;
+}
+
+/* ======================= */
+/*     Main Content Styles */
+/* ======================= */
+main {
+  flex: 1 0 auto;
+}
+
+/* .main-container {
+  display: flex;
+  flex: 1 0 auto;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+} */
+
+.main-container {
+  display: flex;
+  flex: 1 0 auto;
+  height: calc(100vh - 60px); /* Full height minus navbar height */
+  overflow: hidden;
+}
+
+.sidebar {
+  flex: 0 0 250px;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  padding: 20px;
+  position: sticky;
+  top: 60px; /* Height of the navbar */
+  height: calc(100vh - 60px); /* Ensure sidebar fills the available height */
+}
+
+/* .sidebar {
+  flex: 0 0 250px;
+  background-color: #f4f4f4;
+  overflow-y: auto;
+  padding: 20px;
+} */
+
+.sidebar-links {
+  list-style: none;
+}
+
+.sidebar-links li {
+  margin-bottom: 15px;
+}
+
+.sidebar-links a {
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+}
+
+.content {
+  /* flex: 1 1 auto; */
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.content h1 {
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.content p {
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+/* ======================= */
+/*         Footer          */
+/* ======================= */
+footer {
+  flex: 0 0 auto;
+  background-color: #f1f1f1;
+  padding: 10px 0;
+}
+
+footer .container {
+  text-align: center;
+  font-size: 14px;
+}
+
+/* ======================= */
+/*      Responsive Styles  */
+/* ======================= */
+
+/* Tablet and below */
+@media screen and (max-width: 768px) {
+  /* Navbar adjustments */
+  .navbar-center, .navbar-right {
+    display: none;
+  }
+  .hamburger-menu {
+    display: flex;
+  }
+
+  /* Sidebar adjustments for Docs Page */
+  .main-container {
+    flex-direction: column;
+  }
+  .sidebar {
+    flex: 0 0 auto;
+    width: 100%;
+    height: 200px;
+  }
+  .content {
+    flex: 1 1 auto;
+  }
+}
+
+/* Mobile specific adjustments */
+@media screen and (max-width: 480px) {
+  .container {
+    padding: 0 10px;
+  }
+}
+
+/* ======================= */
+/*     Animation Enhancements */
+/* ======================= */
+
+/* Smooth transition for the drawer */
+.drawer {
+  transition: transform 0.3s ease;
+}
+
+/* Smooth fade-in for the overlay */
+.overlay {
+  transition: opacity 0.3s ease;
+}

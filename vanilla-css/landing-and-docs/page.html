@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Landing Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Responsive Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-left">
+          <button class="hamburger-menu" id="hamburger-menu" aria-label="Open navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <a href="page.html" class="logo">Home</a>
+        </div>
+        <div class="navbar-center">
+          <ul class="nav-links">
+            <li><a href="page.html">Home</a></li>
+            <li><a href="docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="navbar-right">
+          <a href="#" class="login">Login</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Overlay and Drawer Menu -->
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <a href="#" class="logo">Logo</a>
+      <button class="close-drawer" id="close-drawer" aria-label="Close navigation menu">×</button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="page.html">Home</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="#" class="login">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content -->
+  <main>
+    <div class="container">
+      <h1>Welcome to Our Landing Page</h1>
+      <p>Some introductory text goes here...</p>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Your Company</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript to Handle Drawer Behavior -->
+  <script>
+    const hamburgerMenu = document.getElementById('hamburger-menu');
+    const closeDrawer = document.getElementById('close-drawer');
+    const overlay = document.getElementById('overlay');
+    const drawer = document.getElementById('drawer');
+    const navbarContainer = document.querySelector('.navbar-container');
+
+    // Function to open the drawer
+    function openDrawer() {
+      drawer.classList.add('open');
+      overlay.classList.add('visible');
+      document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+
+    // Function to close the drawer
+    function closeDrawerFunc() {
+      drawer.classList.remove('open');
+      overlay.classList.remove('visible');
+      document.body.style.overflow = ''; // Restore scrolling
+    }
+
+    // Event listeners
+    hamburgerMenu.addEventListener('click', openDrawer);
+    closeDrawer.addEventListener('click', closeDrawerFunc);
+    overlay.addEventListener('click', closeDrawerFunc);
+
+    // Auto-close drawer on window resize
+    const mediaQuery = window.matchMedia('(min-width: 768px)');
+    function handleResize(e) {
+      if (e.matches) {
+        closeDrawerFunc();
+      }
+    }
+    // Initial check
+    handleResize(mediaQuery);
+    // Listen for viewport changes
+    mediaQuery.addListener(handleResize);
+  </script>
+
+</body>
+</html>

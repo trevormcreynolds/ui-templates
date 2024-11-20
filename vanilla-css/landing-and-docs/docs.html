@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Docs Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- Responsive Navbar -->
+  <header>
+    <nav class="navbar">
+      <div class="navbar-container">
+        <div class="navbar-left">
+          <button class="hamburger-menu" id="hamburger-menu" aria-label="Open navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+          <a href="page.html" class="logo">Home</a>
+        </div>
+        <div class="navbar-center">
+          <ul class="nav-links">
+            <li><a href="page.html">Home</a></li>
+            <li><a href="docs.html">Docs</a></li>
+          </ul>
+        </div>
+        <div class="navbar-right">
+          <a href="#" class="login">Login</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Overlay and Drawer Menu -->
+  <div class="overlay" id="overlay"></div>
+  <div class="drawer" id="drawer">
+    <div class="drawer-header">
+      <a href="#" class="logo">Logo</a>
+      <button class="close-drawer" id="close-drawer" aria-label="Close navigation menu">×</button>
+    </div>
+    <ul class="drawer-links">
+      <li><a href="page.html">Home</a></li>
+      <li><a href="docs.html">Docs</a></li>
+      <li><a href="#" class="login">Login</a></li>
+    </ul>
+  </div>
+
+  <!-- Main Content with Sidebar and Content -->
+  <main>
+    <div class="container">
+      <div class="main-container">
+        <aside class="sidebar">
+          <ul class="sidebar-links">
+            <li><a href="#">Introduction</a></li>
+            <li><a href="#">Getting Started</a></li>
+            <li><a href="#">API Reference</a></li>
+            <!-- Add more links as needed -->
+          </ul>
+        </aside>
+        <section class="content">
+          <div class="container">
+            <h1>Documentation Title</h1>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae, dolorum esse distinctio iure tenetur dolore ex sit eligendi tempore. Itaque ut porro nihil corrupti natus quibusdam ipsam facilis sed officiis vero, blanditiis nulla saepe consectetur molestias beatae ullam aliquam accusamus quam est placeat dolorem? Doloribus est explicabo repellendus quidem laboriosam iusto hic commodi quos minima, aliquam, consequatur nulla quaerat quibusdam alias rerum aliquid, error perferendis. Pariatur laudantium ex minus veniam ullam nisi vitae alias et ducimus, eum deleniti at perferendis.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellat molestias accusantium excepturi earum nisi, sequi explicabo quo provident nemo corporis velit fuga nihil amet rerum corrupti perferendis hic! Accusamus sint rem, sed unde a quaerat inventore. Eum perspiciatis architecto velit aspernatur nisi at, quas, molestias ad soluta nam a placeat!</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem suscipit ipsa velit facilis dignissimos tempora explicabo aliquam, magnam autem pariatur esse soluta incidunt, perspiciatis consequuntur. Distinctio deleniti natus fugit accusamus sapiente rerum error libero facilis rem minus earum expedita provident molestiae vero, praesentium alias quod voluptas? Dolore sapiente aliquam, provident repellendus eligendi odio exercitationem, deleniti sequi velit doloremque nihil non omnis aut pariatur quae libero. Nihil voluptatibus, qui consequuntur ratione earum doloribus sint nesciunt exercitationem officia, deserunt sed consequatur placeat quam laudantium iusto impedit aliquam libero corrupti! Dolorem non, quisquam ipsam cumque voluptate, labore saepe in beatae sint neque assumenda.</p>
+            <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorem suscipit ipsa velit facilis dignissimos tempora explicabo aliquam, magnam autem pariatur esse soluta incidunt, perspiciatis consequuntur. Distinctio deleniti natus fugit accusamus sapiente rerum error libero facilis rem minus earum expedita provident molestiae vero, praesentium alias quod voluptas? Dolore sapiente aliquam, provident repellendus eligendi odio exercitationem, deleniti sequi velit doloremque nihil non omnis aut pariatur quae libero. Nihil voluptatibus, qui consequuntur ratione earum doloribus sint nesciunt exercitationem officia, deserunt sed consequatur placeat quam laudantium iusto impedit aliquam libero corrupti! Dolorem non, quisquam ipsam cumque voluptate, labore saepe in beatae sint neque assumenda.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <!-- Optional: Footer -->
+  <footer>
+    <div class="container">
+      <p>&copy; 2024 Your Company</p>
+    </div>
+  </footer>
+
+    <!-- JavaScript to Handle Drawer Behavior -->
+    <script>
+      const hamburgerMenu = document.getElementById('hamburger-menu');
+      const closeDrawer = document.getElementById('close-drawer');
+      const overlay = document.getElementById('overlay');
+      const drawer = document.getElementById('drawer');
+      const navbarContainer = document.querySelector('.navbar-container');
+  
+      // Function to open the drawer
+      function openDrawer() {
+        drawer.classList.add('open');
+        overlay.classList.add('visible');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      }
+  
+      // Function to close the drawer
+      function closeDrawerFunc() {
+        drawer.classList.remove('open');
+        overlay.classList.remove('visible');
+        document.body.style.overflow = ''; // Restore scrolling
+      }
+  
+      // Event listeners
+      hamburgerMenu.addEventListener('click', openDrawer);
+      closeDrawer.addEventListener('click', closeDrawerFunc);
+      overlay.addEventListener('click', closeDrawerFunc);
+  
+      // Auto-close drawer on window resize
+      const mediaQuery = window.matchMedia('(min-width: 768px)');
+      function handleResize(e) {
+        if (e.matches) {
+          closeDrawerFunc();
+        }
+      }
+      // Initial check
+      handleResize(mediaQuery);
+      // Listen for viewport changes
+      mediaQuery.addListener(handleResize);
+    </script>
+
+</body>
+</html>
